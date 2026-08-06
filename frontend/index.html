@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetBite - Smart Budget Diet Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <span class="logo-b">B</span><span class="logo-rest">udget</span><span class="logo-bite">Bite</span>
+            </div>
+            <div class="loading-bar-wrap"><div class="loading-bar"></div></div>
+            <p class="loading-text">Crafting your nutrition story...</p>
+        </div>
+    </div>
+
+    <!-- Auth Section -->
+    <div id="authSection" class="auth-container">
+        <div class="auth-bg-shapes">
+            <div class="shape s1"></div>
+            <div class="shape s2"></div>
+            <div class="shape s3"></div>
+        </div>
+        <div class="auth-card">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-seedling"></i></div>
+                <h1>Budget<span>Bite</span></h1>
+                <p class="logo-tagline">Eat smart. Spend less. Live better.</p>
+            </div>
+
+            <div id="loginForm" class="auth-form active">
+                <h2>Welcome back</h2>
+                <div class="input-group">
+                    <label>Username</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Enter password" required>
+                        <button type="button" class="pwd-toggle" onclick="togglePwd('loginPassword',this)"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="handleLogin()">Sign In <i class="fas fa-arrow-right"></i></button>
+                <p class="switch-text">New here? <span onclick="showSignup()">Create account</span></p>
+            </div>
+
+            <div id="signupForm" class="auth-form">
+                <h2>Create account</h2>
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="signupName" placeholder="Your full name" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Username</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-at"></i>
+                        <input type="text" id="signupUsername" placeholder="Choose a username" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <div class="input-wrap">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPassword" placeholder="Create password" required>
+                        <button type="button" class="pwd-toggle" onclick="togglePwd('signupPassword',this)"><i class="fas fa-eye"></i></button>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="handleSignup()">Create Account <i class="fas fa-arrow-right"></i></button>
+                <p class="switch-text">Already have an account? <span onclick="showLogin()">Sign in</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Setup -->
+    <div id="profileSection" class="section hidden">
+        <div class="container">
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="step-badge">Step 1 of 1</div>
+                    <h2>Set Up Your Profile</h2>
+                    <p>We'll use this to calculate your ideal nutrition targets</p>
+                </div>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Age</label>
+                        <div class="input-wrap"><i class="fas fa-birthday-cake"></i><input type="number" id="age" min="18" max="100" placeholder="e.g. 25" required></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Weight (kg)</label>
+                        <div class="input-wrap"><i class="fas fa-weight"></i><input type="number" id="weight" step="0.1" placeholder="e.g. 70" required></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Height (cm)</label>
+                        <div class="input-wrap"><i class="fas fa-ruler-vertical"></i><input type="number" id="height" placeholder="e.g. 170" required></div>
+                    </div>
+                    <div class="input-group">
+                        <label>Gender</label>
+                        <div class="input-wrap"><i class="fas fa-venus-mars"></i>
+                            <select id="gender" required>
+                                <option value="">Select gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Goal</label>
+                        <div class="input-wrap"><i class="fas fa-bullseye"></i>
+                            <select id="goal" required>
+                                <option value="">Select goal</option>
+                                <option value="loss">Weight Loss</option>
+                                <option value="gain">Weight Gain</option>
+                                <option value="maintain">Maintenance</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Diet Preference</label>
+                        <div class="input-wrap"><i class="fas fa-leaf"></i>
+                            <select id="dietPref" required>
+                                <option value="">Select preference</option>
+                                <option value="veg">Vegetarian</option>
+                                <option value="nonveg">Non-Vegetarian</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Activity Level</label>
+                        <div class="input-wrap"><i class="fas fa-running"></i>
+                            <select id="activity" required>
+                                <option value="">Select activity</option>
+                                <option value="1.2">Sedentary (desk job)</option>
+                                <option value="1.375">Light (1-3x/week)</option>
+                                <option value="1.55">Moderate (3-5x/week)</option>
+                                <option value="1.725">Active (6-7x/week)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Monthly Budget (₹)</label>
+                        <div class="input-wrap"><i class="fas fa-wallet"></i><input type="number" id="monthlyBudget" placeholder="e.g. 3000" required></div>
+                    </div>
+                </div>
+                <button class="btn-primary full-width" onclick="handleProfile()">Save & Continue <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="section hidden">
+        <div class="sidebar">
+            <div class="sidebar-logo">
+                <i class="fas fa-seedling"></i>
+                <span>BudgetBite</span>
+            </div>
+            <nav class="sidebar-nav">
+                <button class="nav-item active" onclick="showDashboardView('overview')">
+                    <i class="fas fa-th-large"></i><span>Overview</span>
+                </button>
+                <button class="nav-item" onclick="showDashboardView('health')">
+                    <i class="fas fa-heartbeat"></i><span>Health</span>
+                </button>
+                <button class="nav-item" onclick="showDashboardView('workout')">
+                    <i class="fas fa-dumbbell"></i><span>Workout</span>
+                </button>
+                <button class="nav-item" onclick="showDietGenerator()">
+                    <i class="fas fa-utensils"></i><span>Diet Plan</span>
+                </button>
+                <button class="nav-item" onclick="showDietImprover()">
+                    <i class="fas fa-chart-line"></i><span>Improve Diet</span>
+                </button>
+                <button class="nav-item" onclick="showDashboardView('budget')">
+                    <i class="fas fa-wallet"></i><span>Budget</span>
+                </button>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="sidebar-user">
+                    <div class="sidebar-avatar" id="sidebarAvatar">A</div>
+                    <div>
+                        <div class="sidebar-username" id="sidebarName">User</div>
+                        <div class="sidebar-handle" id="sidebarHandle">@user</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="top-bar">
+                <div>
+                    <h1 class="page-title" id="pageTitle">Overview</h1>
+                    <p class="page-sub" id="pageSub">Your daily nutrition dashboard</p>
+                </div>
+                <div class="top-bar-right">
+                    <div class="date-chip"><i class="fas fa-calendar-alt"></i> <span id="todayDate"></span></div>
+                    <div class="notif-btn"><i class="fas fa-bell"></i><span class="notif-dot"></span></div>
+                </div>
+            </div>
+
+            <!-- Overview View -->
+            <div id="view-overview" class="dash-view active-view">
+                <div class="kpi-row">
+                    <div class="kpi-card" style="--accent:#ff6b6b">
+                        <div class="kpi-icon"><i class="fas fa-fire"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-value" id="kpi-calories">—</span>
+                            <span class="kpi-label">Daily Calories</span>
+                        </div>
+                        <div class="kpi-trend up"><i class="fas fa-arrow-up"></i> Target</div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#4ecdc4">
+                        <div class="kpi-icon"><i class="fas fa-dumbbell"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-value" id="kpi-protein">—</span>
+                            <span class="kpi-label">Protein Goal (g)</span>
+                        </div>
+                        <div class="kpi-trend up"><i class="fas fa-arrow-up"></i> Daily</div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#ffd93d">
+                        <div class="kpi-icon"><i class="fas fa-wallet"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-value" id="kpi-budget">—</span>
+                            <span class="kpi-label">Daily Budget (₹)</span>
+                        </div>
+                        <div class="kpi-trend" id="budget-trend"></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#a29bfe">
+                        <div class="kpi-icon"><i class="fas fa-weight"></i></div>
+                        <div class="kpi-data">
+                            <span class="kpi-value" id="kpi-bmi">—</span>
+                            <span class="kpi-label">BMI</span>
+                        </div>
+                        <div class="kpi-trend" id="bmi-category"></div>
+                    </div>
+                </div>
+                <div class="dash-grid-2">
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-chart-donut"></i> Macro Targets</h3>
+                        <div class="macro-bars" id="macroBars"></div>
+                    </div>
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-tachometer-alt"></i> Health Score</h3>
+                        <div class="health-score-wrap" id="overviewHealthScore"></div>
+                    </div>
+                </div>
+                <div class="quick-actions">
+                    <h3 class="card-heading">Quick Actions</h3>
+                    <div class="qa-grid">
+                        <div class="qa-btn" onclick="showDietGenerator()"><i class="fas fa-magic"></i><span>Generate Plan</span></div>
+                        <div class="qa-btn" onclick="showDietImprover()"><i class="fas fa-search"></i><span>Analyze Meal</span></div>
+                        <div class="qa-btn" onclick="showDashboardView('health')"><i class="fas fa-heartbeat"></i><span>Health Stats</span></div>
+                        <div class="qa-btn" onclick="showDashboardView('budget')"><i class="fas fa-coins"></i><span>Budget Track</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Health View -->
+            <div id="view-health" class="dash-view">
+                <div class="kpi-row">
+                    <div class="kpi-card" style="--accent:#fd79a8">
+                        <div class="kpi-icon"><i class="fas fa-heartbeat"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="h-bmr">—</span><span class="kpi-label">BMR (kcal)</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#00b894">
+                        <div class="kpi-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="h-tdee">—</span><span class="kpi-label">TDEE (kcal)</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#e17055">
+                        <div class="kpi-icon"><i class="fas fa-weight"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="h-bmi">—</span><span class="kpi-label">BMI</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#6c5ce7">
+                        <div class="kpi-icon"><i class="fas fa-percent"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="h-ibw">—</span><span class="kpi-label">Ideal Weight (kg)</span></div>
+                    </div>
+                </div>
+                <div class="dash-grid-2">
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-pills"></i> Daily Nutrient Goals</h3>
+                        <div id="nutrientGoals" class="nutrient-list"></div>
+                    </div>
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-info-circle"></i> Health Insights</h3>
+                        <div id="healthInsights" class="insights-list"></div>
+                    </div>
+                </div>
+                <div class="dash-card mt-2">
+                    <h3 class="card-heading"><i class="fas fa-water"></i> Hydration & Wellness Goals</h3>
+                    <div id="wellnessGoals" class="wellness-grid"></div>
+                </div>
+            </div>
+
+            <!-- Workout View -->
+            <div id="view-workout" class="dash-view">
+                <div class="kpi-row">
+                    <div class="kpi-card" style="--accent:#fdcb6e">
+                        <div class="kpi-icon"><i class="fas fa-fire-alt"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="w-burn">—</span><span class="kpi-label">Exercise Burn Goal</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#00cec9">
+                        <div class="kpi-icon"><i class="fas fa-running"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="w-steps">8,000</span><span class="kpi-label">Daily Steps Goal</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#e84393">
+                        <div class="kpi-icon"><i class="fas fa-clock"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="w-active">45</span><span class="kpi-label">Active Mins/Day</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#55efc4">
+                        <div class="kpi-icon"><i class="fas fa-bed"></i></div>
+                        <div class="kpi-data"><span class="kpi-value">7–8</span><span class="kpi-label">Sleep Hours</span></div>
+                    </div>
+                </div>
+                <div class="dash-grid-2">
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-dumbbell"></i> Recommended Workouts</h3>
+                        <div id="workoutList" class="workout-list"></div>
+                    </div>
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-apple-alt"></i> Pre/Post Workout Nutrition</h3>
+                        <div id="workoutNutrition" class="workout-nutrition"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Budget View -->
+            <div id="view-budget" class="dash-view">
+                <div class="kpi-row">
+                    <div class="kpi-card" style="--accent:#00b894">
+                        <div class="kpi-icon"><i class="fas fa-coins"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="b-monthly">—</span><span class="kpi-label">Monthly Budget (₹)</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#fdcb6e">
+                        <div class="kpi-icon"><i class="fas fa-calendar-day"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="b-daily">—</span><span class="kpi-label">Daily Budget (₹)</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#ff7675">
+                        <div class="kpi-icon"><i class="fas fa-chart-pie"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="b-per-meal">—</span><span class="kpi-label">Per Meal Budget (₹)</span></div>
+                    </div>
+                    <div class="kpi-card" style="--accent:#74b9ff">
+                        <div class="kpi-icon"><i class="fas fa-percentage"></i></div>
+                        <div class="kpi-data"><span class="kpi-value" id="b-food-pct">~30%</span><span class="kpi-label">Ideal Food % of Income</span></div>
+                    </div>
+                </div>
+                <div class="dash-grid-2">
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-balance-scale"></i> Budget vs Nutrition</h3>
+                        <div id="budgetBreakdown" class="budget-breakdown"></div>
+                    </div>
+                    <div class="dash-card">
+                        <h3 class="card-heading"><i class="fas fa-lightbulb"></i> Savings Tips</h3>
+                        <div id="savingsTips" class="tips-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diet Generator -->
+    <div id="dietGenerator" class="section hidden">
+        <div class="container">
+            <button class="back-btn" onclick="showDashboard()">
+                <i class="fas fa-arrow-left"></i> Dashboard
+            </button>
+            <div class="page-heading">
+                <h2>Generate Diet Plan</h2>
+                <p>Budget-optimised meals split across Breakfast, Lunch & Dinner</p>
+            </div>
+            <div class="generator-card">
+                <div class="budget-input-row">
+                    <div class="input-group flex-1">
+                        <label>Budget Amount (₹)</label>
+                        <div class="input-wrap"><i class="fas fa-rupee-sign"></i><input type="number" id="budget" min="50" max="1000" placeholder="e.g. 150" required></div>
+                    </div>
+                    <div class="period-toggle">
+                        <button class="period-btn active" id="btn-daily" onclick="setPeriod('daily')">Per Day</button>
+                        <button class="period-btn" id="btn-weekly" onclick="setPeriod('weekly')">Per Week</button>
+                    </div>
+                </div>
+                <div class="budget-preview" id="budgetPreview"></div>
+                <button class="btn-primary full-width" onclick="handleDietGenerate()">
+                    <span id="generateText"><i class="fas fa-magic"></i> Generate Plan</span>
+                    <div id="loadingDots" class="loading-dots hidden"><span></span><span></span><span></span></div>
+                </button>
+            </div>
+
+            <div id="dietResult" class="result-area hidden">
+                <div class="score-row">
+                    <div class="score-donut-wrap">
+                        <svg class="score-donut" viewBox="0 0 120 120">
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="#f0f0f0" stroke-width="12"/>
+                            <circle cx="60" cy="60" r="50" fill="none" stroke="url(#scoreGrad)" stroke-width="12"
+                                stroke-linecap="round" stroke-dasharray="314" id="scoreArc" stroke-dashoffset="314"
+                                transform="rotate(-90 60 60)"/>
+                            <defs>
+                                <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#ff6b6b"/>
+                                    <stop offset="100%" stop-color="#4ecdc4"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="score-inner">
+                            <span id="scoreValue">0</span>
+                            <small>/ 100</small>
+                        </div>
+                    </div>
+                    <div class="score-meta">
+                        <h3 id="scoreLabel">Calculating...</h3>
+                        <p id="scoreDesc"></p>
+                        <div class="score-pills" id="scorePills"></div>
+                    </div>
+                </div>
+
+                <!-- Meal Sections -->
+                <div class="meal-sections">
+                    <div class="meal-section-card breakfast">
+                        <div class="meal-section-header">
+                            <div class="meal-icon"><i class="fas fa-sun"></i></div>
+                            <div>
+                                <h3>Breakfast</h3>
+                                <span class="meal-time">7:00 – 9:00 AM</span>
+                            </div>
+                            <div class="meal-stats" id="bfStats"></div>
+                        </div>
+                        <div class="meal-items-list" id="breakfastItems"></div>
+                    </div>
+
+                    <div class="meal-section-card lunch">
+                        <div class="meal-section-header">
+                            <div class="meal-icon"><i class="fas fa-cloud-sun"></i></div>
+                            <div>
+                                <h3>Lunch</h3>
+                                <span class="meal-time">12:00 – 2:00 PM</span>
+                            </div>
+                            <div class="meal-stats" id="lunchStats"></div>
+                        </div>
+                        <div class="meal-items-list" id="lunchItems"></div>
+                    </div>
+
+                    <div class="meal-section-card dinner">
+                        <div class="meal-section-header">
+                            <div class="meal-icon"><i class="fas fa-moon"></i></div>
+                            <div>
+                                <h3>Dinner</h3>
+                                <span class="meal-time">7:00 – 9:00 PM</span>
+                            </div>
+                            <div class="meal-stats" id="dinnerStats"></div>
+                        </div>
+                        <div class="meal-items-list" id="dinnerItems"></div>
+                    </div>
+                </div>
+
+                <div class="day-totals-card">
+                    <h3><i class="fas fa-sigma"></i> Daily Summary</h3>
+                    <div class="totals-row">
+                        <div class="total-chip"><i class="fas fa-fire"></i><span id="totalCalories">—</span><small>kcal</small></div>
+                        <div class="total-chip"><i class="fas fa-dumbbell"></i><span id="totalProtein">—</span><small>g protein</small></div>
+                        <div class="total-chip"><i class="fas fa-rupee-sign"></i><span id="totalCost">—</span><small>spent</small></div>
+                        <div class="total-chip target"><i class="fas fa-bullseye"></i><span id="requiredCalories">—</span><small>kcal target</small></div>
+                    </div>
+                </div>
+
+                <div class="alternatives-card">
+                    <h4><i class="fas fa-exchange-alt"></i> Smart Swaps & Additions</h4>
+                    <div id="alternativesList"></div>
+                </div>
+
+                
+
+                <button class="btn-outline full-width mt-2" onclick="generateNewPlan()"><i class="fas fa-redo"></i> Generate New Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diet Improver -->
+    <div id="dietImprover" class="section hidden">
+        <div class="container">
+            <button class="back-btn" onclick="showDashboard()">
+                <i class="fas fa-arrow-left"></i> Dashboard
+            </button>
+            <div class="page-heading">
+                <h2>Analyse & Improve Your Diet</h2>
+                <p>Describe what you ate and we'll score it and suggest improvements</p>
+            </div>
+            <div class="improver-card">
+                <div class="input-group">
+                    <label>What did you eat? <span class="label-hint">(e.g. 2 roti + dal + rice + curd)</span></label>
+                    <div class="input-wrap textarea-wrap">
+                        <textarea id="currentMeal" rows="3" placeholder="Describe your meal..."></textarea>
+                    </div>
+                </div>
+                <button class="btn-primary full-width" onclick="handleDietImprove()"><i class="fas fa-search"></i> Analyse Diet</button>
+            </div>
+
+            <div id="improveResult" class="result-area hidden">
+                <div class="status-grid">
+                    <div class="status-card">
+                        <div class="status-icon" style="--c:#ff6b6b"><i class="fas fa-fire"></i></div>
+                        <h4>Calories</h4>
+                        <div class="gauge-wrap"><div class="gauge-track"><div class="gauge-fill" id="caloriesBar"></div></div></div>
+                        <span class="status-val" id="caloriesStatus">—</span>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-icon" style="--c:#4ecdc4"><i class="fas fa-dumbbell"></i></div>
+                        <h4>Protein</h4>
+                        <div class="gauge-wrap"><div class="gauge-track"><div class="gauge-fill" id="proteinBar"></div></div></div>
+                        <span class="status-val" id="proteinStatus">—</span>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-icon" style="--c:#ffd93d"><i class="fas fa-leaf"></i></div>
+                        <h4>Fibre Est.</h4>
+                        <div class="gauge-wrap"><div class="gauge-track"><div class="gauge-fill" id="fibreBar"></div></div></div>
+                        <span class="status-val" id="fibreStatus">—</span>
+                    </div>
+                    <div class="status-card">
+                        <div class="status-icon" style="--c:#a29bfe"><i class="fas fa-rupee-sign"></i></div>
+                        <h4>Cost Est.</h4>
+                        <div class="gauge-wrap"><div class="gauge-track"><div class="gauge-fill" id="costBar"></div></div></div>
+                        <span class="status-val" id="costStatus">—</span>
+                    </div>
+                </div>
+                <div class="suggestions-card">
+                    <h3><i class="fas fa-lightbulb"></i> Smart Improvements</h3>
+                    <div id="suggestionsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

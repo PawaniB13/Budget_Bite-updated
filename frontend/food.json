@@ -1,0 +1,17 @@
+[
+    {"name": "Rice (cooked, 100g)", "calories": 130, "protein": 2.7, "cost": 4, "veg": true},
+    {"name": "Roti (1 medium)", "calories": 80, "protein": 2.5, "cost": 2, "veg": true},
+    {"name": "Dal (1 bowl, 150g)", "calories": 150, "protein": 8, "cost": 8, "veg": true},
+    {"name": "Egg (1 boiled)", "calories": 70, "protein": 6, "cost": 6, "veg": false},
+    {"name": "Milk (1 glass, 200ml)", "calories": 120, "protein": 8, "cost": 10, "veg": true},
+    {"name": "Banana (1 medium)", "calories": 90, "protein": 1.1, "cost": 5, "veg": true},
+    {"name": "Peanuts (30g)", "calories": 170, "protein": 7.5, "cost": 10, "veg": true},
+    {"name": "Paneer (50g)", "calories": 150, "protein": 10, "cost": 25, "veg": true},
+    {"name": "Chicken breast (100g cooked)", "calories": 165, "protein": 31, "cost": 40, "veg": false},
+    {"name": "Curd (1 bowl, 150g)", "calories": 100, "protein": 4, "cost": 8, "veg": true},
+    {"name": "Mixed Vegetable Sabzi (1 bowl)", "calories": 80, "protein": 2, "cost": 12, "veg": true},
+    {"name": "Apple (1 medium)", "calories": 52, "protein": 0.3, "cost": 8, "veg": true},
+    {"name": "Chickpeas (100g cooked)", "calories": 164, "protein": 9, "cost": 15, "veg": true},
+    {"name": "Oats (40g)", "calories": 150, "protein": 5, "cost": 12, "veg": true},
+    {"name": "Almonds (20g)", "calories": 115, "protein": 4, "cost": 20, "veg": true}
+]
